@@ -1,7 +1,6 @@
 import random
 
 
-
 def dice_roll(count):
     rolls = []
     total_sum = 0
@@ -17,5 +16,6 @@ def user_input():
     result, total_sum = dice_roll(count)
     print("Результаты бросков:", ', '.join(map(str, result)))
     print(f"Сумма: {total_sum}")
+
 
 user_input()
