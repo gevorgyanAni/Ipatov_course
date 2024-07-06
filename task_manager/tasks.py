@@ -57,7 +57,7 @@ class TaskManager:
         try:
             with open(self.filename, 'r', encoding='utf-8') as file:
                 tasks_data = json.load(file)
-                self.tasks = [Task(**task_data) for task_data in tasks_data]
+                self.tasks = [Task(**task_data) for task_data in tasks_data] #распаковка словаря
         except FileNotFoundError:
             pass
         except Exception as e:
