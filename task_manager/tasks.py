@@ -90,7 +90,7 @@ def main():
         if choice == '1':
             description = input("Введите описание задачи: ")
             due_date = input("Введите срок выполнения задачи (в формате ГГГГ-ММ-ДД): ")
-            task = Task(description, due_date) #создает новый эксемпляр\объект класса
+            task = Task(description, due_date) #создает новый экземпляр\объект класса
             manager.add_task(task)
 
         elif choice == '2':
