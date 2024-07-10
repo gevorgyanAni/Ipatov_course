@@ -6,25 +6,6 @@ from datetime import datetime
 # классы: Product, DiscountedProduct(наследование от Product!), для представления товаров со скидкой
 # Cart - управление корзиной, Order - представление заказа,
 # OnlineStore - управление магазином
-self.products = [
-    {
-        "name": "Зарядка",
-        "price": 4000.0,
-        "description": "Зарядка для ноутбука ThinkPad X1 Carbon (11th Gen, 14)"
-    },
-    {
-        "name": "Ноутбук",
-        "price": 146000.0,
-        "description": "Ноутбук ThinkPad X1 Carbon (11th Gen, 14)",
-        "discount": 40
-    },
-    {
-        "name": "Чехол для ноутбука",
-        "price": 4750.0,
-        "description": "Черный водоустойчивый чехол для Ноутбука ThinkPad X1 Carbon (11th Gen, 14)"
-    }
-]
-
 
 
 class Product:
@@ -86,7 +67,10 @@ class Cart:
                 print(f"{i + 1}. {item}")
 
     def total_price(self):
-        pass
+        total_price= 0
+        for item in self.items:
+            total_price += item
+            print(f'Сумма к оплате: {total_price}')
 
 
 
@@ -114,12 +98,17 @@ class OnlineStore:
     def __init__(self, products_file, orders_file):
         self.products_file = products_file
         self.orders_file = orders_file
-        self.filename = 'products.json.json'
+        self.filename = 'products.json.'
         self.products = self.load_products()
         self.orders = self.load_orders()
 
     def save_products(self):  # сохраняет задачу!!использовать каждый раз
-        pass
+        try:
+            with open(self.filename, 'w', encoding='utf-8') as file:
+                json.dump([product.__dict__ for product in self.products], file, ensure_ascii=False,
+                          indent=4)  # сохраняет задачи в файл в формате JSON, отступы в 4 пробела
+        except Exception as e:
+            print(f"Ошибка при сохранении задач: {e}")
 
     def save_orders(self):
         pass
@@ -179,7 +168,7 @@ def main():
             print('Оформление заказа: ')
             user_name = input('Напишите ваше имя: ')
             user_adress= input('Напишите адрес для доставки: ')
-            print('Сумма к оплате: ')
+
 
         elif choice == '5':
             print('История закказов: ')
