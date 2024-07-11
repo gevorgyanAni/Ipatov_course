@@ -1,0 +1,111 @@
+[
+    {
+        "user_name": "Fyb",
+        "user_address": "djdj",
+        "items": [
+            {
+                "name": "Зарядка",
+                "price": 4000.0,
+                "description": "Зарядка для ноутбука ThinkPad X1 Carbon (11th Gen, 14)"
+            },
+            {
+                "name": "Ноутбук",
+                "price": 146000.0,
+                "description": "Ноутбук ThinkPad X1 Carbon (11th Gen, 14)",
+                "discount": 5
+            }
+        ],
+        "total_price": 142700.0
+    },
+    {
+        "user_name": "gjgj",
+        "user_address": "jfjf",
+        "items": [
+            {
+                "name": "Ноутбук",
+                "price": 146000.0,
+                "description": "Ноутбук ThinkPad X1 Carbon (11th Gen, 14)",
+                "discount": 5
+            }
+        ],
+        "total_price": 138700.0
+    },
+    {
+        "user_name": "dkk",
+        "user_address": "sjmdj",
+        "items": [],
+        "total_price": 0
+    },
+    {
+        "user_name": "fgn",
+        "user_address": "jj",
+        "items": [
+            {
+                "name": "Зарядка",
+                "price": 4000.0,
+                "description": "Зарядка для ноутбука ThinkPad X1 Carbon (11th Gen, 14)"
+            }
+        ],
+        "total_price": 4000.0
+    },
+    {
+        "user_name": "fjgj",
+        "user_address": "dkkdkfjf",
+        "items": [],
+        "total_price": 0
+    },
+    {
+        "user_name": "вввввв",
+        "user_address": "ууууууууууу",
+        "items": [
+            {
+                "name": "Ноутбук",
+                "price": 146000.0,
+                "description": "Ноутбук ThinkPad X1 Carbon (11th Gen, 14)",
+                "discount": 5
+            }
+        ],
+        "total_price": 138700.0
+    },
+    {
+        "user_name": "пама",
+        "user_address": "ввы",
+        "items": [
+            {
+                "name": "Чехол для ноутбука",
+                "price": 4750.0,
+                "description": "Черный водоустойчивый чехол для Ноутбука ThinkPad X1 Carbon (11th Gen, 14)"
+            }
+        ],
+        "total_price": 4750.0
+    },
+    {
+        "user_name": "укккк",
+        "user_address": "ыппппп",
+        "items": [
+            {
+                "name": "Зарядка",
+                "price": 4000.0,
+                "description": "Зарядка для ноутбука ThinkPad X1 Carbon (11th Gen, 14)"
+            }
+        ],
+        "total_price": 4000.0
+    },
+    {
+        "user_name": "пппппппп",
+        "user_address": "ыыыыыыыыыы",
+        "items": [
+            {
+                "name": "Чехол для ноутбука",
+                "price": 4750.0,
+                "description": "Черный водоустойчивый чехол для Ноутбука ThinkPad X1 Carbon (11th Gen, 14)"
+            },
+            {
+                "name": "Зарядка",
+                "price": 4000.0,
+                "description": "Зарядка для ноутбука ThinkPad X1 Carbon (11th Gen, 14)"
+            }
+        ],
+        "total_price": 8750.0
+    }
+]
