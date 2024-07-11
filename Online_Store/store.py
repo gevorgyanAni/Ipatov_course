@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 
 
 # ТЗ: просмотр, добавление, оформление, сохранение, orders.json
@@ -45,7 +44,7 @@ class DiscountedProduct(Product):
         return data
 
     def __repr__(self):
-        return f"{self.name} - {self.description} - {self.get_price} руб. (Скидка: {self.discount}%)"
+        return f"{self.name} - {self.description} - {self.get_price()} руб. (Скидка: {self.discount}%)"
 
 
 class Cart:
@@ -63,27 +62,30 @@ class Cart:
                 print(f"{i + 1}. {item}")
 
     def total_price(self):
-        total_price = sum(item.get_price() for item in self.items)
-        return total_price
+        sum_price = sum(item.get_price() for item in self.items)
+        return sum_price
 
 
 class Order:
-    def __init__(self, customer_name, customer_address, cart):
-        self.customer_name = customer_name
-        self.customer_address = customer_address
+    def __init__(self, user_name, user_address, cart):
+        self.user_name = user_name
+        self.user_address = user_address
         self.cart = cart
 
     def to_dict(self):
         return {
-            "customer_name": self.customer_name,
-            "customer_address": self.customer_address,
+            "user_name": self.user_name,
+            "user_address": self.user_address,
             "items": [item.to_dict() for item in self.cart.items],
             "total_price": self.cart.total_price()
         }
 
     def __str__(self):
-        return (f"Заказ клиента: {self.customer_name}\nАдрес: {self.customer_address}\n"
-                f"Товары: {[str(item) for item in self.cart.items]}\nИтого: {self.cart.total_price()} руб.")
+        items_str = "\n".join(str(item) for item in self.cart.items)
+        return (f"Заказ клиента: {self.user_name}\n"
+                f"Адрес: {self.user_address}\n"
+                f"Список товаров:\n{items_str}\n"
+                f"Общая сумма: {self.cart.total_price()} руб.")
 
 
 class OnlineStore:
@@ -93,16 +95,16 @@ class OnlineStore:
         self.products_file = products_file
         self.orders_file = orders_file
         self.cart = Cart()
-        self.products = self.load_products()
-        self.orders = self.load_orders()
         self.orders = []
         self.products = []
+        self.load_products()
+        self.load_orders()
 
-    def save_products(self):  # сохраняет задачу!!использовать каждый раз
+    def save_products(self):
         try:
             with open(self.products_file, 'w', encoding='utf-8') as file:
                 json.dump([product.to_dict() for product in self.products], file, ensure_ascii=False,
-                          indent=4)  # сохраняет задачи в файл в формате JSON, отступы в 4 пробела
+                          indent=4)
         except Exception as e:
             print(f"Ошибка при выгрузке товаров: {e}")
 
@@ -117,14 +119,14 @@ class OnlineStore:
         try:
             with open(self.orders_file, 'r', encoding='utf-8') as file:
                 orders_data = json.load(file)
-                for order in orders_data:
+                for order_data in orders_data:
                     cart = Cart()
-                    for item in orders_data['items']:
+                    for item in order_data['items']:
                         if 'discount' in item:
                             cart.add_product(DiscountedProduct(**item))
                         else:
                             cart.add_product(Product(**item))
-                    order = Order(orders_data['customer_name'], orders_data['customer_address'], cart)
+                    order = Order(order_data['user_name'], order_data['user_address'], cart)
                     self.orders.append(order)
         except FileNotFoundError:
             pass
@@ -149,11 +151,14 @@ class OnlineStore:
         if not self.products:
             print("Нет товаров в наличии.")
         else:
-            for i, product in enumerate(self.products):
-                print(
-                    f"{i + 1}. Название {product.name}, описание товара: {product.description}, цена: {product.price}")
-                if 'discount' in product:
-                    print(f"Скидка: {product.discount}%")
+            list_products = "\n".join(str(product) for product in self.products)
+            print(list_products)
+
+        # if not self.products:
+        #     print("Нет товаров в наличии")
+        # else:
+        #     for i, item in enumerate(self.products):
+        #         print(f"{i + 1}. {item}")
 
 
 def main():
@@ -188,11 +193,16 @@ def main():
         elif choice == '3':
             print('Товары в корзине: ')
             store.cart.show_cart()
-        elif choice == '3':
+        elif choice == '4':
             print('Оформление заказа: ')
             user_name = input('Напишите ваше имя: ')
-            user_adress = input('Напишите адрес для доставки: ')
-
+            user_address = input('Напишите адрес для доставки: ')
+            order = Order(user_name, user_address, store.cart)
+            store.orders.append(order)
+            store.save_orders()
+            total = store.cart.total_price()
+            store.cart = Cart()
+            print(f"Заказ оформлен. Общая сумма: {total} руб.")
 
         elif choice == '5':
             if not store.orders:
