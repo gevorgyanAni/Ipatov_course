@@ -1,12 +1,27 @@
-s = input()
-s_list = list(s)
-spaces = list(map(int, input().split()))
-word_spaces = []
-for i in range(len(s_list)):
-        if i in spaces:
-            word_spaces.append(' ')
-            word_spaces.append(s_list[i])
-        else:
-            word_spaces.append(s_list[i])
+import json
 
-print(word_spaces)
+
+json_string = """
+{
+    "customers": [
+        {
+            "userid": 123456,
+            "username": "Allie Hsu",
+            "phone": [
+                "000-001-0002",
+                "000-002-0002"
+            ],
+            "is_vip": true
+        },
+        {
+            "userid": 223678,
+            "username": "Donald Duck",
+            "phone": null,
+            "is_vip": false
+        }
+    ]
+}
+"""
+
+data = json.loads(json_string)
+print(data)

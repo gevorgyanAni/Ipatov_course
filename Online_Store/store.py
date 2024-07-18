@@ -27,7 +27,6 @@ class Product:
         return f"{self.name} - {self.description} - {self.price} руб."
 
 
-#
 # [DiscountedProduct, Product, DiscountedProduct, DiscountedProduct, Product]
 
 class DiscountedProduct(Product):
@@ -43,7 +42,7 @@ class DiscountedProduct(Product):
         data['discount'] = self.discount
         return data
 
-    def __repr__(self):
+    def __str__(self):
         return f"{self.name} - {self.description} - {self.get_price()} руб. (Скидка: {self.discount}%)"
 
 
@@ -90,7 +89,7 @@ class Order:
 
 class OnlineStore:
     def __init__(self):
-        products_file = 'products.json.'
+        products_file = 'products.json'
         orders_file = 'orders.json'
         self.products_file = products_file
         self.orders_file = orders_file
@@ -100,13 +99,13 @@ class OnlineStore:
         self.load_products()
         self.load_orders()
 
-    def save_products(self):
-        try:
-            with open(self.products_file, 'w', encoding='utf-8') as file:
-                json.dump([product.to_dict() for product in self.products], file, ensure_ascii=False,
-                          indent=4)
-        except Exception as e:
-            print(f"Ошибка при выгрузке товаров: {e}")
+    # def save_products(self):
+    #     try:
+    #         with open(self.products_file, 'w', encoding='utf-8') as file:
+    #             json.dump([product.to_dict() for product in self.products], file, ensure_ascii=False,
+    #                       indent=4)
+    #     except Exception as e:
+    #         print(f"Ошибка при выгрузке товаров: {e}")
 
     def save_orders(self):
         try:
