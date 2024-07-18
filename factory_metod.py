@@ -1,59 +1,30 @@
+from abc import ABC, abstractmethod
 
-class Button:
-    def render(self):
-        pass
-
-class WindowsButton(Button):
-    def render(self):
-        return "Render a button in a Windows style."
-
-class HTMLButton(Button):
-    def render(self):
-        return "Render a button in HTML style."
-
-class Dialog:
-    def create_button(self):
-        pass
-
-    def render(self):
-        button = self.create_button()
-        return button.render()
-
-class WindowsDialog(Dialog):
-    def create_button(self):
-        return WindowsButton()
-
-class WebDialog(Dialog):
-    def create_button(self):
-        return HTMLButton()
-
-# Использование
-dialog = WindowsDialog()
-print(dialog.render())  # Вывод: Render a button in a Windows style.
-
-dialog = WebDialog()
-print(dialog.render())  # Вывод: Render a button in HTML style.
-
-
-import abc
-class Delivery():
+class Delivery(ABC):
+    @abstractmethod
     def deliver(self):
         pass
 
 class TruckDelivery(Delivery):
-    pass
+    def deliver(self):
+        return "Deliver by land in a box"
 
 class ShipDelivery(Delivery):
-    pass
+    def deliver(self):
+        return 'Deliver by sea in a container'
 
-class DeliveryFactory():
-    pass
+class DeliveryFactory(ABC):
+    @abstractmethod
+    def create_delivery(self):
+        pass
 
 class LandDeliveryFactory(DeliveryFactory):
-    pass
+    def create_delivery(self):
+        return TruckDelivery()
 
 class SeaDeliveryFactory(DeliveryFactory):
-    pass
+    def create_delivery(self):
+        return ShipDelivery()
 
 land_factory = LandDeliveryFactory()
 sea_factory = SeaDeliveryFactory()
