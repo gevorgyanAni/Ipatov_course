@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
-
-class NewsAgency():
+class NewsAgency:
     def __init__(self):
         self.news = []
         self.subscribers = []
@@ -20,18 +19,16 @@ class NewsAgency():
         self.news.append(news)
         self.notify_subscribers(news)
 
-
 class Subscriber(ABC):
     @abstractmethod
     def update(self, news):
         pass
 
-
 class ConcreteSubscriber(Subscriber):
     def update(self, news):
-        return f"Новости: {news}"
+        print(f"Новости: {news}")
 
-
+# Пример использования
 news_agency = NewsAgency()
 
 subscriber1 = ConcreteSubscriber()
@@ -45,6 +42,7 @@ news_agency.add_news("Latest News: Observer Pattern Explained!")
 news_agency.unsubscribe(subscriber1)
 news_agency.add_news("Final News: Subscriber1 won't see this.")
 
+# Дополнительный тест
 news_agency = NewsAgency()
 subscriber = ConcreteSubscriber()
 
