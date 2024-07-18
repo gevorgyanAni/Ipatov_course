@@ -28,7 +28,7 @@ class ConcreteSubscriber(Subscriber):
     def update(self, news):
         print(f"Новости: {news}")
 
-# Пример использования
+
 news_agency = NewsAgency()
 
 subscriber1 = ConcreteSubscriber()
@@ -42,7 +42,7 @@ news_agency.add_news("Latest News: Observer Pattern Explained!")
 news_agency.unsubscribe(subscriber1)
 news_agency.add_news("Final News: Subscriber1 won't see this.")
 
-# Дополнительный тест
+
 news_agency = NewsAgency()
 subscriber = ConcreteSubscriber()
 
