@@ -33,7 +33,7 @@ class User:
                 {
                     "title": book.title,
                     "borrow_date": book.borrow_date
-                 }
+                }
             )
             return True
         return False
@@ -70,7 +70,9 @@ class BorrowableBook(Book):
 
 
 class Library:
-    def __init__(self, books_file='books.json', users_file='users.json'):
+    def __init__(self):
+        books_file = 'books.json'
+        users_file = 'users.json'
         self.books_file = books_file
         self.users_file = users_file
         self.books = []
@@ -86,8 +88,6 @@ class Library:
                     self.books.append(BorrowableBook(**item))
         except FileNotFoundError:
             print(f"Файл {self.books_file} не найден. Будет создан новый файл при сохранении книг.")
-        except json.JSONDecodeError:
-            print(f"Ошибка при декодировании JSON из файла {self.books_file}. Проверьте формат файла.")
         except Exception as e:
             print(f"Произошла ошибка при загрузке книг: {e}")
 
@@ -101,8 +101,6 @@ class Library:
                     self.users.append(user)
         except FileNotFoundError:
             print(f"Файл {self.users_file} не найден. Будет создан новый файл при сохранении пользователей.")
-        except json.JSONDecodeError:
-            print(f"Ошибка при декодировании JSON из файла {self.users_file}. Проверьте формат файла.")
         except Exception as e:
             print(f"Произошла ошибка при загрузке пользователей: {e}")
 
@@ -119,14 +117,11 @@ class Library:
 
     def save_users(self):
         users_data = [
-        {
-            "name": user.name,
-            "borrowed_books": user.borrowed_books
-        } for user in self.users]
+            {
+                "name": user.name,
+                "borrowed_books": user.borrowed_books
+            } for user in self.users]
         self.save(self.users_file, users_data)
-
-
-
 
     def add_user(self, name):
         user = User(name)
@@ -151,7 +146,6 @@ class Library:
         user = self.find_user(user_name)
         if user is None:
             user = self.add_user(user_name)
-
 
         for book in self.books:
             if book.title.lower() == book_title.lower() and book.available:
@@ -185,7 +179,7 @@ class Library:
         for borrowed in user.borrowed_books_history():
             borrow_date = borrowed["borrow_date"]
             return_date = borrowed.get("return_date", "еще не возвращена")
-            print(f"- {borrowed['title']}, заимствована {borrow_date}, возвращена {return_date}")
+            print(f"- {borrowed['title']}, заимствована {borrow_date}, инфо о возврате: {return_date}")
 
 
 def main():
@@ -199,7 +193,7 @@ def main():
         print("4. Посмотреть историю взятых книг")
         print("5. Выйти")
 
-        choice = input("Выберите действие (1-6): ")
+        choice = input("Выберите действие (1-5): ")
 
         if choice == '1':
             library.print_books()
